@@ -125,6 +125,21 @@
   .theme-toggle{position:fixed; right:14px; bottom:14px; z-index:40; width:44px; height:44px; border-radius:50%;
     border:1px solid var(--line); background:var(--surface); color:var(--text); cursor:pointer; font-size:18px; box-shadow:0 2px 8px var(--shadow)}
 
+  .figure{margin:20px 0}
+  .figure svg{width:100%; height:auto; max-width:540px; display:block; margin:0 auto}
+  .figure figcaption{color:var(--muted); font-size:14px; margin-top:8px; text-align:center}
+  .dg-fill{fill:var(--surface-2)}
+  .dg-line{stroke:var(--line); stroke-width:1.5; fill:none}
+  .dg-accent{stroke:var(--accent); stroke-width:2.5; fill:none; stroke-linecap:round; stroke-linejoin:round}
+  .dg-warm{stroke:var(--warm); stroke-width:2.5; fill:none; stroke-linecap:round; stroke-linejoin:round}
+  .dg-dash{stroke-dasharray:5 5}
+  .dg-t{fill:var(--text); font-size:14px; font-family:inherit}
+  .dg-tb{fill:var(--text); font-size:16px; font-weight:700; font-family:inherit}
+  .dg-m{fill:var(--muted); font-size:13px; font-family:inherit}
+  .dg-af{fill:var(--accent)}
+  .dg-wf{fill:var(--warm)}
+  .dg-band{fill:var(--accent-soft)}
+
   footer{border-top:1px solid var(--line); padding:26px 16px 50px; text-align:center; color:var(--muted); font-size:14px}
 
   .anchor-line{font-family:Georgia,serif; font-size:19px; color:var(--text); font-style:italic; text-align:center; margin:26px 0}
@@ -204,6 +219,24 @@
       <p>An anxious person and an avoidant or disorganized person find each other and lock together like a key in a lock. It is one of the most documented patterns in relationship psychology. I was the anxious pursuer. They were the distancers. That fit is the engine of everything that happened.</p>
     </div>
 
+    <figure class="figure">
+      <svg viewBox="0 0 420 210" role="img" aria-label="Diagram of the pursue and withdraw dance">
+        <circle cx="95" cy="105" r="46" class="dg-fill dg-line"/>
+        <circle cx="325" cy="105" r="46" class="dg-fill dg-line"/>
+        <text x="95" y="102" text-anchor="middle" class="dg-tb">You</text>
+        <text x="95" y="122" text-anchor="middle" class="dg-m">anxious</text>
+        <text x="325" y="102" text-anchor="middle" class="dg-tb">Her</text>
+        <text x="325" y="122" text-anchor="middle" class="dg-m">avoidant</text>
+        <path d="M147 68 Q210 34 273 68" class="dg-accent"/>
+        <polygon points="277,68 265,63 266,74" class="dg-af"/>
+        <text x="210" y="28" text-anchor="middle" class="dg-t">you move closer</text>
+        <path d="M273 142 Q210 176 147 142" class="dg-warm"/>
+        <polygon points="143,142 155,137 156,148" class="dg-wf"/>
+        <text x="210" y="196" text-anchor="middle" class="dg-t">she pulls back, then returns when you go quiet</text>
+      </svg>
+      <figcaption>Closeness makes her withdraw, distance makes her return. The loop needs a pursuer to run.</figcaption>
+    </figure>
+
     <details>
       <summary>My side: anxious attachment</summary>
       <div class="inner">
@@ -239,6 +272,22 @@
       <h3>How to spot it</h3>
       <p>It comes at the peak of a good moment, not during a real problem. It is sudden, out of proportion, and it lands on my softest spot or announces an ending out of nowhere. That timing is the fingerprint. Warmth, then a rupture, right when things get close.</p>
     </div>
+
+    <figure class="figure">
+      <svg viewBox="0 0 440 200" role="img" aria-label="Diagram of closeness rising then dropping at the eject button">
+        <line x1="42" y1="172" x2="422" y2="172" class="dg-line"/>
+        <line x1="42" y1="24" x2="42" y2="172" class="dg-line"/>
+        <text x="42" y="192" class="dg-m">time</text>
+        <line x1="42" y1="52" x2="410" y2="52" class="dg-warm dg-dash"/>
+        <text x="410" y="44" text-anchor="end" class="dg-m">closeness she can tolerate</text>
+        <polyline points="42,165 150,48 153,158 205,158 300,48 303,158 350,158 415,60" class="dg-accent"/>
+        <circle cx="150" cy="48" r="5" class="dg-wf"/>
+        <circle cx="300" cy="48" r="5" class="dg-wf"/>
+        <text x="150" y="34" text-anchor="middle" class="dg-t">eject</text>
+        <text x="300" y="34" text-anchor="middle" class="dg-t">eject</text>
+      </svg>
+      <figcaption>Warmth climbs to the peak, then the button drops it. The rupture always lands at the top, not the bottom.</figcaption>
+    </figure>
 
     <div class="card accent-card">
       <span class="pill">Example 1</span>
@@ -294,6 +343,19 @@
       <h3>The threshold</h3>
       <p>Everyone has a ceiling where intimacy feels like more than they can hold. Secure people have a high one. The deeper the wound, the lower it sits and the harder the alarm fires. That is why Mahnoor ejected within a single evening and Ayesha had more runway before it fired. Their ceiling, not my failure. More love does not raise it. Only their own work does.</p>
     </div>
+
+    <figure class="figure">
+      <svg viewBox="0 0 440 215" role="img" aria-label="Diagram of swinging between two fears">
+        <rect x="42" y="82" width="356" height="48" class="dg-band"/>
+        <line x1="42" y1="82" x2="398" y2="82" class="dg-warm dg-dash"/>
+        <text x="46" y="74" class="dg-t">TOO CLOSE, feels trapped, ejects</text>
+        <line x1="42" y1="130" x2="398" y2="130" class="dg-warm dg-dash"/>
+        <text x="46" y="148" class="dg-t">TOO FAR, feels abandoned, reaches back</text>
+        <path d="M42 106 C 92 42, 142 42, 172 106 S 252 170, 292 106 S 372 42, 412 106" class="dg-accent"/>
+        <text x="220" y="205" text-anchor="middle" class="dg-m">the calm middle is the only safe band, and she keeps overshooting it</text>
+      </svg>
+      <figcaption>Two fears in one nervous system. She swings between them and can never settle in the calm middle.</figcaption>
+    </figure>
 
     <div class="card warm-card">
       <h3>I was the string on the yo-yo</h3>
@@ -461,6 +523,22 @@
       <h3>Expect the waves</h3>
       <p>This does not go straight down. Good day, then a hard one out of nowhere. That is not the plan failing, that is healing. On the hard nights I do not need willpower, I need one rule: the decision is already made, so I do nothing, and I let the wave pass.</p>
     </div>
+
+    <figure class="figure">
+      <svg viewBox="0 0 440 200" role="img" aria-label="Diagram of healing in waves versus contact resetting the pain">
+        <line x1="42" y1="172" x2="422" y2="172" class="dg-line"/>
+        <line x1="42" y1="24" x2="42" y2="172" class="dg-line"/>
+        <text x="42" y="192" class="dg-m">time</text>
+        <text x="10" y="30" class="dg-m">pain</text>
+        <polyline points="42,48 78,92 108,62 148,120 182,96 222,146 262,128 305,164 355,156 415,168" class="dg-accent"/>
+        <text x="330" y="132" class="dg-t">waves get gentler</text>
+        <path d="M232,140 C 252,80 252,66 252,52" class="dg-warm"/>
+        <polygon points="252,46 246,60 258,60" class="dg-wf"/>
+        <text x="262" y="70" class="dg-t">each contact</text>
+        <text x="262" y="86" class="dg-t">resets to day one</text>
+      </svg>
+      <figcaption>Left alone, the pain comes in waves that soften over time. Every contact throws you back to the top.</figcaption>
+    </figure>
 
     <div class="note-block">
       <label>My commitments to myself</label>
