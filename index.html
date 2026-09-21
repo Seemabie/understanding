@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Clarity</title>
+<style>
+  :root{
+    --bg:#f7f4ef; --surface:#fffdf9; --surface-2:#f1ece3;
+    --text:#2b2b2e; --muted:#6b6b73; --accent:#3a7d7b; --accent-soft:#e4efee;
+    --warm:#b5674f; --warm-soft:#f5e7e1; --line:#e7e1d8; --shadow:rgba(40,35,25,.08);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#15161a; --surface:#1e2025; --surface-2:#25282e;
+      --text:#e9e7e2; --muted:#9a9aa4; --accent:#6fb4b1; --accent-soft:#1f2d2d;
+      --warm:#d68a72; --warm-soft:#2e211c; --line:#2c3037; --shadow:rgba(0,0,0,.3);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#15161a; --surface:#1e2025; --surface-2:#25282e;
+    --text:#e9e7e2; --muted:#9a9aa4; --accent:#6fb4b1; --accent-soft:#1f2d2d;
+    --warm:#d68a72; --warm-soft:#2e211c; --line:#2c3037; --shadow:rgba(0,0,0,.3);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.68; font-size:17px; -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:Georgia,"Times New Roman",serif; line-height:1.25; font-weight:600}
+  .wrap{max-width:820px; margin:0 auto; padding:0 16px}
+
+  header{
+    text-align:center; padding:54px 16px 30px; border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,var(--surface),var(--bg));
+  }
+  header .kicker{color:var(--accent); letter-spacing:.22em; text-transform:uppercase; font-size:12px; font-weight:700}
+  header h1{font-size:40px; margin:.35em 0 .2em}
+  header p{color:var(--muted); margin:0 auto; max-width:540px; font-size:16px}
+
+  nav{
+    position:sticky; top:0; z-index:20; background:var(--bg);
+    border-bottom:1px solid var(--line); padding:10px 0;
+    overflow-x:auto; -webkit-overflow-scrolling:touch;
+  }
+  nav .wrap{display:flex; gap:6px; flex-wrap:nowrap}
+  nav button{
+    white-space:nowrap; border:1px solid var(--line); background:var(--surface);
+    color:var(--muted); padding:8px 13px; border-radius:999px; font-size:13.5px;
+    cursor:pointer; font-weight:600; transition:.15s;
+  }
+  nav button:hover{color:var(--text)}
+  nav button.active{background:var(--accent); color:#fff; border-color:var(--accent)}
+
+  main{padding:34px 0 60px}
+  section{display:none; animation:fade .35s ease}
+  section.active{display:block}
+  @keyframes fade{from{opacity:0; transform:translateY(6px)}to{opacity:1; transform:none}}
+
+  h2.title{font-size:29px; margin:0 0 6px}
+  .lede{color:var(--muted); font-size:17px; margin:0 0 22px}
+
+  .card{
+    background:var(--surface); border:1px solid var(--line); border-radius:16px;
+    padding:22px 22px; margin:16px 0; box-shadow:0 1px 3px var(--shadow);
+  }
+  .card h3{margin:0 0 8px; font-size:20px}
+  .card p{margin:.5em 0}
+  .card:first-of-type{margin-top:0}
+
+  .accent-card{border-left:4px solid var(--accent)}
+  .warm-card{border-left:4px solid var(--warm); background:var(--warm-soft)}
+  .quiet{color:var(--muted); font-size:15.5px}
+
+  .pill{display:inline-block; background:var(--accent-soft); color:var(--accent);
+    font-size:12px; font-weight:700; padding:3px 10px; border-radius:999px; margin-bottom:10px; letter-spacing:.03em}
+
+  blockquote{
+    margin:14px 0; padding:12px 18px; border-left:3px solid var(--warm);
+    background:var(--surface-2); border-radius:0 10px 10px 0; font-style:italic; color:var(--text)
+  }
+
+  ul.clean{list-style:none; padding:0; margin:12px 0}
+  ul.clean li{padding:9px 0 9px 30px; position:relative; border-bottom:1px solid var(--line)}
+  ul.clean li:last-child{border-bottom:none}
+  ul.clean li::before{content:"›"; position:absolute; left:6px; top:8px; color:var(--accent); font-weight:700; font-size:18px}
+
+  .step{display:flex; gap:14px; align-items:flex-start; padding:12px 0; border-bottom:1px solid var(--line)}
+  .step:last-child{border-bottom:none}
+  .step .n{flex:0 0 30px; height:30px; border-radius:50%; background:var(--accent); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; margin-top:2px}
+  .step .b{flex:1}
+  .step .b strong{display:block; margin-bottom:2px}
+
+  details{border:1px solid var(--line); border-radius:12px; margin:10px 0; background:var(--surface); overflow:hidden}
+  details summary{cursor:pointer; padding:14px 18px; font-weight:600; list-style:none; position:relative}
+  details summary::-webkit-details-marker{display:none}
+  details summary::after{content:"+"; position:absolute; right:18px; color:var(--accent); font-size:20px; font-weight:700}
+  details[open] summary::after{content:"–"}
+  details .inner{padding:2px 18px 16px}
+
+  .panic-bar{
+    text-align:center; margin:22px 0 4px;
+  }
+  .panic-bar button{
+    background:var(--warm); color:#fff; border:none; padding:13px 22px; border-radius:999px;
+    font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 3px 10px var(--shadow)
+  }
+
+  .note-block{margin-top:16px}
+  .note-block label{display:block; font-size:13px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px}
+  textarea.note{
+    width:100%; min-height:90px; resize:vertical; padding:12px 14px; border-radius:12px;
+    border:1px solid var(--line); background:var(--surface-2); color:var(--text);
+    font-family:inherit; font-size:15.5px; line-height:1.55;
+  }
+  textarea.note:focus{outline:2px solid var(--accent); outline-offset:1px}
+  .saved-tag{font-size:12px; color:var(--muted); margin-top:5px; height:14px}
+
+  .toolbtn{background:var(--accent); color:#fff; border:none; padding:10px 16px; border-radius:10px; font-weight:600; cursor:pointer; font-size:14px; margin:6px 6px 0 0}
+  .toolbtn.ghost{background:transparent; color:var(--accent); border:1px solid var(--accent)}
+
+  .theme-toggle{position:fixed; right:14px; bottom:14px; z-index:40; width:44px; height:44px; border-radius:50%;
+    border:1px solid var(--line); background:var(--surface); color:var(--text); cursor:pointer; font-size:18px; box-shadow:0 2px 8px var(--shadow)}
+
+  footer{border-top:1px solid var(--line); padding:26px 16px 50px; text-align:center; color:var(--muted); font-size:14px}
+
+  .anchor-line{font-family:Georgia,serif; font-size:19px; color:var(--text); font-style:italic; text-align:center; margin:26px 0}
+
+  @media (max-width:560px){
+    header h1{font-size:32px}
+    h2.title{font-size:24px}
+    body{font-size:16px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="kicker">For the hard nights</div>
+  <h1>Clarity</h1>
+  <p>What I understood, written down so I never have to relearn it in pain. Read it when the longing comes. It is true even when it does not feel true.</p>
+</header>
+
+<nav>
+  <div class="wrap" id="navwrap">
+    <button data-target="start" class="active">Start here</button>
+    <button data-target="pattern">The pattern</button>
+    <button data-target="eject">The eject button</button>
+    <button data-target="cycle">The cycle</button>
+    <button data-target="case">Why it could not work</button>
+    <button data-target="toolkit">Hard nights toolkit</button>
+    <button data-target="healing">Healing my side</button>
+    <button data-target="plan">My plan</button>
+    <button data-target="notes">My notes</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- START -->
+  <section id="start" class="active">
+    <h2 class="title">Read this first</h2>
+    <p class="lede">When you feel weak, when you want to text, unblock, drive by, or check, start here. Slowly.</p>
+
+    <div class="card accent-card">
+      <h3>The decision is already made</h3>
+      <p>The clear version of me, the one who could think straight, already decided. It is done. Full and final. No contact, both blocked. When the urge comes, I do not renegotiate the decision. I just wait for the wave to pass. It always passes.</p>
+    </div>
+
+    <div class="panic-bar">
+      <button id="toToolkit">I feel weak right now →</button>
+    </div>
+
+    <div class="card">
+      <h3>The five lines that are always true</h3>
+      <ul class="clean">
+        <li>The pull I feel is not love calling me back. It is an old alarm firing, plus grief, plus a nervous system that got used to intensity.</li>
+        <li>Going back leads to the same room. Warmth, then withdrawal, then the wound. I have watched it happen every single time.</li>
+        <li>Her coming back is not proof she changed. It is the pendulum swinging on schedule. Predictable, not meaningful.</li>
+        <li>It was never about my worth or my past. It was wiring set long before I arrived. Nothing I could have done would have fixed it.</li>
+        <li>The calm I feel when I am away from her is not boredom. It is my body telling me the truth. Trust the calm, not the craving.</li>
+      </ul>
+    </div>
+
+    <div class="anchor-line">"I can walk away from a book without reading the last chapter."</div>
+
+    <div class="note-block">
+      <label>Why I am doing this (write it in my own words)</label>
+      <textarea class="note" data-note="start_why" placeholder="On a clear day, write the reason here so a future me on a weak night can read it."></textarea>
+      <div class="saved-tag" data-for="start_why"></div>
+    </div>
+  </section>
+
+  <!-- PATTERN -->
+  <section id="pattern">
+    <h2 class="title">The pattern</h2>
+    <p class="lede">Two different women. Same ending. The common thread was the fit between their wiring and mine.</p>
+
+    <div class="card">
+      <h3>The anxious avoidant trap</h3>
+      <p>An anxious person and an avoidant or disorganized person find each other and lock together like a key in a lock. It is one of the most documented patterns in relationship psychology. I was the anxious pursuer. They were the distancers. That fit is the engine of everything that happened.</p>
+    </div>
+
+    <details>
+      <summary>My side: anxious attachment</summary>
+      <div class="inner">
+        <p>My nervous system learned that love was uncertain, so it stays alert for signs of losing it, over gives to secure connection, reads a partner's moods as threats to scan, and ties my worth to being chosen. It also reads intensity and anxiety as love, which is exactly how I kept getting drawn to unavailable people. This is the part I can actually change, and that is the hopeful part.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Their side: disorganized or fearful avoidant</summary>
+      <div class="inner">
+        <p>Two opposite fears live in the same body. Fear of being abandoned, and fear of being trapped when closeness grows. So they pull you in, then push you away, and can never quite land. Closeness feels like danger. When it climbs too high, the alarm fires and they create distance however they can.</p>
+      </div>
+    </details>
+
+    <div class="card warm-card">
+      <h3>The freeing truth</h3>
+      <p>The one person present in both relationships was me. That is not a criticism. It is the most hopeful thing here, because my own pattern is the single thing I can change, and changing it is what decides whether the next one goes the same way or not.</p>
+    </div>
+
+    <div class="note-block">
+      <label>My notes on the pattern</label>
+      <textarea class="note" data-note="pattern_notes" placeholder="Anything I want to remember here."></textarea>
+      <div class="saved-tag" data-for="pattern_notes"></div>
+    </div>
+  </section>
+
+  <!-- EJECT -->
+  <section id="eject">
+    <h2 class="title">The eject button</h2>
+    <p class="lede">When closeness climbs past what their system can hold, the fear fires and they press a button to restore distance. Different words every time. Same job underneath.</p>
+
+    <div class="card">
+      <h3>How to spot it</h3>
+      <p>It comes at the peak of a good moment, not during a real problem. It is sudden, out of proportion, and it lands on my softest spot or announces an ending out of nowhere. That timing is the fingerprint. Warmth, then a rupture, right when things get close.</p>
+    </div>
+
+    <div class="card accent-card">
+      <span class="pill">Example 1</span>
+      <h3>The last dinner</h3>
+      <p><strong>Setup:</strong> Early days with Mahnoor, a beautiful dinner, closeness rising fast.</p>
+      <blockquote>"This is our last dinner."</blockquote>
+      <p><strong>What it did:</strong> Announced an ending in the middle of a beginning. It pushed me away and pulled me to reassure her at the same time. A test and a hook.</p>
+    </div>
+
+    <div class="card accent-card">
+      <span class="pill">Example 2</span>
+      <h3>You deserve better</h3>
+      <p><strong>Setup:</strong> Mahnoor again, a good moment, mood glowing.</p>
+      <blockquote>"You deserve better."</blockquote>
+      <p><strong>What it did:</strong> Sounds noble, works as a door slam. It put the ending on me being too good, so she never had to name the real thing, which was that closeness scared her.</p>
+    </div>
+
+    <div class="card accent-card">
+      <span class="pill">Example 3</span>
+      <h3>The dart at the door</h3>
+      <p><strong>Setup:</strong> Ayesha at the laundry, two warm hours, tears, I love you, me caring for her.</p>
+      <blockquote>The sudden sexual comment about another man, right as I was leaving.</blockquote>
+      <p><strong>What it did:</strong> Reached for the cruelest line at the tenderest moment to restore distance. Real or invented, it changed nothing. It was aimed to wound, not to inform.</p>
+    </div>
+
+    <div class="card warm-card">
+      <h3>Why I should not reassure the button</h3>
+      <p>Reassurance in a healthy relationship is love. But answering the eject button rewards it, so it repeats. It never lands, because the fear is inside them, not in anything I said. And it locks me into the pursuer role forever. The words cannot fix a fear that was never about me.</p>
+    </div>
+
+    <div class="note-block">
+      <label>Other eject buttons I remember</label>
+      <textarea class="note" data-note="eject_notes" placeholder="Add any others I recognize, so the pattern stays clear."></textarea>
+      <div class="saved-tag" data-for="eject_notes"></div>
+    </div>
+  </section>
+
+  <!-- CYCLE -->
+  <section id="cycle">
+    <h2 class="title">The cycle</h2>
+    <p class="lede">Once I see the whole loop, it stops being a mystery and becomes a thing I can predict, and step out of.</p>
+
+    <div class="card">
+      <div class="step"><div class="n">1</div><div class="b"><strong>Closeness rises</strong>It feels good, until it climbs toward the threshold where closeness starts to feel like danger.</div></div>
+      <div class="step"><div class="n">2</div><div class="b"><strong>The eject button</strong>The fear fires. A jab, an ending, a fight over nothing, going cold, blocking. Distance restored.</div></div>
+      <div class="step"><div class="n">3</div><div class="b"><strong>Relief in the distance</strong>Their fear quiets. They seem fine, even relieved, while I am left shattered.</div></div>
+      <div class="step"><div class="n">4</div><div class="b"><strong>The pendulum swings back</strong>As distance stretches, the other fear, abandonment, takes over. The space that soothed them starts to ache.</div></div>
+      <div class="step"><div class="n">5</div><div class="b"><strong>They orbit back</strong>Unblock, a warm message, a reason to meet. It feels like they realized something. It is just the swing.</div></div>
+      <div class="step"><div class="n">6</div><div class="b"><strong>Reconnection, then repeat</strong>Warmth floods in, closeness climbs to the same threshold, the button gets pressed again. Back to stage one.</div></div>
+    </div>
+
+    <div class="card accent-card">
+      <h3>The threshold</h3>
+      <p>Everyone has a ceiling where intimacy feels like more than they can hold. Secure people have a high one. The deeper the wound, the lower it sits and the harder the alarm fires. That is why Mahnoor ejected within a single evening and Ayesha had more runway before it fired. Their ceiling, not my failure. More love does not raise it. Only their own work does.</p>
+    </div>
+
+    <div class="card warm-card">
+      <h3>I was the string on the yo-yo</h3>
+      <p>My pursuit soothed their abandonment fear when they returned, and my closeness triggered their engulfment fear and got me ejected. The loop cannot run without a pursuer who responds. No contact cuts the string. The yo-yo cannot swing.</p>
+    </div>
+
+    <div class="note-block">
+      <label>My notes on the cycle</label>
+      <textarea class="note" data-note="cycle_notes" placeholder="What I want to hold onto here."></textarea>
+      <div class="saved-tag" data-for="cycle_notes"></div>
+    </div>
+  </section>
+
+  <!-- CASE -->
+  <section id="case">
+    <h2 class="title">Why it could not work</h2>
+    <p class="lede">The good things were experiences I can have again anywhere. The bad things were the foundation, and the foundation was gone.</p>
+
+    <div class="card">
+      <h3>The good column</h3>
+      <p class="quiet">Trips, food, movies, long drives, sunsets, late night talks, good days. Real, but every one is an experience I can have again with a safe person, or on my own. None of them was safety, trust, or being chosen.</p>
+    </div>
+
+    <div class="card">
+      <h3>The case, by category</h3>
+      <ul class="clean">
+        <li><strong>No emotional safety.</strong> Walking on eggshells, always braced for the next flip. A braced nervous system cannot rest.</li>
+        <li><strong>No trust.</strong> Dating apps and secret contact undermined the ground the whole thing stood on.</li>
+        <li><strong>No commitment or clarity.</strong> Deliberate ambiguity and breadcrumbs kept me hoping just enough to stay.</li>
+        <li><strong>Contempt at my soft spots.</strong> My past, my finances, my situation, used as weapons instead of protected.</li>
+        <li><strong>One sided.</strong> I carried, paid, planned, gave, while being criticized for it. Not a partnership.</li>
+        <li><strong>Volatility.</strong> Explosions, standoffs, good days that never lasted, my peace hostage to a mood.</li>
+        <li><strong>No repair.</strong> No accountability, only rupture and return. Nothing ever mended.</li>
+        <li><strong>The cost to me.</strong> Sleep, health, focus, career, peace, and years. That was the real bill.</li>
+      </ul>
+    </div>
+
+    <div class="card accent-card">
+      <h3>My own verdict, in my own words</h3>
+      <blockquote>If we reunite, high chance it goes back to the same thing. And even if she talks, very low chance she stays committed, and I will not feel emotionally safe.</blockquote>
+      <p class="quiet">That was not fear talking. That was the clearest version of me doing the honest math. Trust him.</p>
+    </div>
+
+    <div class="card warm-card">
+      <h3>The bargaining trap</h3>
+      <p>"If only she did not have this issue, it could have worked" is imagining a different person wearing her face. Her wiring ran through all of it. The partner who could love me beautifully is a secure person, and that is a future ahead of me, not a lost version of her behind me.</p>
+    </div>
+
+    <div class="note-block">
+      <label>My own bad list (paste or write it, read it on weak nights)</label>
+      <textarea class="note" data-note="case_list" placeholder="My honest list of what it actually cost me. This is my anchor when the good days start to glow too bright."></textarea>
+      <div class="saved-tag" data-for="case_list"></div>
+    </div>
+  </section>
+
+  <!-- TOOLKIT -->
+  <section id="toolkit">
+    <h2 class="title">Hard nights toolkit</h2>
+    <p class="lede">For the surges. The urge to text, the intrusive images, the jealousy, the loneliness. Pick one thing and do it.</p>
+
+    <div class="card warm-card">
+      <h3>Right now, in this moment</h3>
+      <ul class="clean">
+        <li>Put the phone down and stand up. Move the body. Walk, water on the face, ten pushups.</li>
+        <li>The surge peaks and falls within a couple of minutes if I do not feed it. Ride the wave, do not act on it.</li>
+        <li>Do not text. Do not unblock. Do not check. The decision is already made.</li>
+        <li>Message a safe friend, even about nothing. Change the room I am in.</li>
+        <li>Read the Start Here page again, slowly.</li>
+      </ul>
+    </div>
+
+    <details>
+      <summary>When I want to text her</summary>
+      <div class="inner">
+        <p>The urge is the pain looking for relief, or the wound looking for revenge. Neither lands. If I need to say it, I write it all out here or in my notes and I do not send it. Saying it is the release. Sending it is the relapse. Silence is the cleanest last word.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>When the jealous images come</summary>
+      <div class="inner">
+        <p>It is not a memory, it is my own mind generating a picture from one cruel sentence. I do not fight it, because fighting makes it louder. I name it flatly, "that is the dart again," and turn my eyes to something real in the room. I do not investigate, do not seek certainty. Even if it were true, it changes nothing about my path. It fades fast when I stop feeding it.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>When I miss her and feel lonely</summary>
+      <div class="inner">
+        <p>Missing is real and allowed. Four years live in the body. I let the grief come in doses instead of fighting it or analyzing it. I feel it, and it moves through. Then I put my energy back into my own life. The void is not filled from outside by another person. It is filled by rebuilding my own ground.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>When my mind starts analyzing her</summary>
+      <div class="inner">
+        <p>Analysis feels like progress but it is a leash. Understanding her more does not free me, it keeps her at the center. I already have the full picture. When the decoding starts, I say "I do not need to know," and turn back to my own page. Let her be a mystery I no longer need solved.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Social media</summary>
+      <div class="inner">
+        <p>The feed feeds me what keeps the wound open. For now I stay logged out, or I reset the feed and mark breakup content as not interested. I do not scroll toward her. Starve the algorithm and it moves on within days.</p>
+      </div>
+    </details>
+
+    <div class="note-block">
+      <label>What actually helps me (my personal list)</label>
+      <textarea class="note" data-note="toolkit_notes" placeholder="The specific things that calm me. People to call, places to go, songs, anything that works."></textarea>
+      <div class="saved-tag" data-for="toolkit_notes"></div>
+    </div>
+  </section>
+
+  <!-- HEALING -->
+  <section id="healing">
+    <h2 class="title">Healing my side</h2>
+    <p class="lede">The one attachment future I get to shape is my own. Attachment style is learned, which means it can be relearned. This is earned security.</p>
+
+    <div class="card">
+      <h3>The work, in pieces</h3>
+      <ul class="clean">
+        <li><strong>Regulate my own nervous system.</strong> When the alarm fires, soothe it from the inside. Breathe, ground, hand on chest, tell the frightened part I am safe. Become my own steady base.</li>
+        <li><strong>Find the gap between trigger and reaction.</strong> Feel the urge to chase or check, and do nothing for a while. The freedom lives in that pause.</li>
+        <li><strong>Build worth outside being chosen.</strong> Work, friendships, body, accomplishments. A full life means no single person can shake me.</li>
+        <li><strong>Stop the over giving and rescuing.</strong> Love is reciprocal. Practice receiving and setting boundaries. My needs matter equally.</li>
+        <li><strong>Relearn what safety feels like.</strong> Calm is the goal, not boredom. The flutter I called chemistry was often just the alarm.</li>
+        <li><strong>Slow down in dating.</strong> Do not merge fast, do not lose myself, keep my own life running.</li>
+        <li><strong>Tolerate uncertainty.</strong> Not knowing is not danger. Sit in it without writing a catastrophe.</li>
+        <li><strong>Therapy, aimed here.</strong> Attachment wounds heal inside safe relationships, including with a good therapist. This is the real vehicle.</li>
+      </ul>
+    </div>
+
+    <div class="card accent-card">
+      <h3>What secure love looks like (green flags)</h3>
+      <p>Closeness makes them come closer, not flinch. They repair after conflict. They are consistent. My soft spots are safe with them. There is no bracing. It feels calm, and calm is the win.</p>
+    </div>
+
+    <div class="card">
+      <h3>Books that reinforce this</h3>
+      <p class="quiet">Attached, by Amir Levine and Rachel Heller. Polysecure, by Jessica Fern. Heidi Priebe on attachment and self regulation.</p>
+    </div>
+
+    <div class="note-block">
+      <label>My growth notes and what I am working on</label>
+      <textarea class="note" data-note="healing_notes" placeholder="What I am practicing, what I notice, what I want to bring to therapy."></textarea>
+      <div class="saved-tag" data-for="healing_notes"></div>
+    </div>
+  </section>
+
+  <!-- PLAN -->
+  <section id="plan">
+    <h2 class="title">My plan</h2>
+    <p class="lede">Simple and clean. Mine.</p>
+
+    <div class="card">
+      <div class="step"><div class="n">1</div><div class="b"><strong>The decision is made</strong>Complete no contact. Full and final from my side. I do not renegotiate it.</div></div>
+      <div class="step"><div class="n">2</div><div class="b"><strong>Complete block</strong>Not a dot of reply. If I see her anywhere, she does not exist for me. I keep walking.</div></div>
+      <div class="step"><div class="n">3</div><div class="b"><strong>Grieve on purpose</strong>Let it come in doses. Feel it instead of fighting it or analyzing it.</div></div>
+      <div class="step"><div class="n">4</div><div class="b"><strong>Tell my mind both sides</strong>When the highlight reel glows, add the bad list back in. See the whole truth.</div></div>
+      <div class="step"><div class="n">5</div><div class="b"><strong>Redirect energy to myself</strong>Body, work, friends, sleep, my own life. Small doses, every day.</div></div>
+      <div class="step"><div class="n">6</div><div class="b"><strong>I do not need to understand her</strong>I can walk away from a book without reading the last chapter.</div></div>
+    </div>
+
+    <div class="card warm-card">
+      <h3>Expect the waves</h3>
+      <p>This does not go straight down. Good day, then a hard one out of nowhere. That is not the plan failing, that is healing. On the hard nights I do not need willpower, I need one rule: the decision is already made, so I do nothing, and I let the wave pass.</p>
+    </div>
+
+    <div class="note-block">
+      <label>My commitments to myself</label>
+      <textarea class="note" data-note="plan_notes" placeholder="What I am promising myself, in my own words."></textarea>
+      <div class="saved-tag" data-for="plan_notes"></div>
+    </div>
+  </section>
+
+  <!-- NOTES -->
+  <section id="notes">
+    <h2 class="title">My notes</h2>
+    <p class="lede">A private space, plus a backup. Everything I type on this page saves in this browser on this device.</p>
+
+    <div class="card">
+      <h3>Free space</h3>
+      <div class="note-block">
+        <label>Anything on my mind</label>
+        <textarea class="note" data-note="free_1" style="min-height:140px" placeholder="Write freely. This is just for me."></textarea>
+        <div class="saved-tag" data-for="free_1"></div>
+      </div>
+      <div class="note-block">
+        <label>Letters I will never send</label>
+        <textarea class="note" data-note="free_2" style="min-height:140px" placeholder="When I want to text her, I write it here instead. Say it, do not send it."></textarea>
+        <div class="saved-tag" data-for="free_2"></div>
+      </div>
+      <div class="note-block">
+        <label>Wins and good days</label>
+        <textarea class="note" data-note="free_3" placeholder="Small proof that I am healing. A calm day, a good moment, a night I did not reach for the phone."></textarea>
+        <div class="saved-tag" data-for="free_3"></div>
+      </div>
+    </div>
+
+    <div class="card accent-card">
+      <h3>Backup and privacy</h3>
+      <p class="quiet">My notes live only in this browser. They are not sent anywhere. To keep a copy, or to move them to another device, download them. To bring them back, import the file.</p>
+      <button class="toolbtn" id="downloadNotes">Download my notes</button>
+      <label class="toolbtn ghost" style="display:inline-block; cursor:pointer">Import notes<input type="file" id="importNotes" accept="application/json" hidden></label>
+      <button class="toolbtn ghost" id="clearNotes">Clear all notes</button>
+      <div class="saved-tag" id="backupMsg"></div>
+    </div>
+  </section>
+
+</main>
+
+<button class="theme-toggle" id="themeToggle" title="Switch light and dark">◐</button>
+
+<footer>
+  <p>Made for me, to read when I need it. The pull will lie sometimes. This page will not.</p>
+  <p class="quiet">If it ever gets too heavy, talk to a real person I trust, or a therapist. I do not have to carry it alone.</p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---- Tab navigation ----
+  var nav = document.getElementById('navwrap');
+  var buttons = nav.querySelectorAll('button');
+  var sections = document.querySelectorAll('main > section');
+  function show(id){
+    sections.forEach(function(s){ s.classList.toggle('active', s.id === id); });
+    buttons.forEach(function(b){ b.classList.toggle('active', b.dataset.target === id); });
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  buttons.forEach(function(b){ b.addEventListener('click', function(){ show(b.dataset.target); }); });
+  var toToolkit = document.getElementById('toToolkit');
+  if(toToolkit){ toToolkit.addEventListener('click', function(){ show('toolkit'); }); }
+
+  // ---- Notes: autosave to localStorage (safe) ----
+  var PREFIX = 'clarity_note_';
+  function safeGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+  function safeSet(k,v){ try{ localStorage.setItem(k,v); return true; }catch(e){ return false; } }
+  function safeRemove(k){ try{ localStorage.removeItem(k); }catch(e){} }
+
+  var areas = document.querySelectorAll('textarea.note');
+  function tag(key, text){
+    var el = document.querySelector('.saved-tag[data-for="'+key+'"]');
+    if(el){ el.textContent = text; setTimeout(function(){ if(el.textContent===text) el.textContent=''; }, 1800); }
+  }
+  areas.forEach(function(t){
+    var key = t.getAttribute('data-note');
+    var stored = safeGet(PREFIX+key);
+    if(stored !== null){ t.value = stored; }
+    var timer;
+    t.addEventListener('input', function(){
+      clearTimeout(timer);
+      timer = setTimeout(function(){
+        var ok = safeSet(PREFIX+key, t.value);
+        tag(key, ok ? 'Saved' : 'Could not save in this browser');
+      }, 400);
+    });
+  });
+
+  // ---- Backup: download / import / clear ----
+  var msg = document.getElementById('backupMsg');
+  function flash(text){ if(msg){ msg.textContent = text; setTimeout(function(){ if(msg.textContent===text) msg.textContent=''; }, 3000); } }
+
+  var dl = document.getElementById('downloadNotes');
+  if(dl){ dl.addEventListener('click', function(){
+    var data = {};
+    areas.forEach(function(t){ var k=t.getAttribute('data-note'); if(t.value) data[k]=t.value; });
+    var blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'clarity-notes.json';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    flash('Downloaded. Keep this file safe.');
+  }); }
+
+  var imp = document.getElementById('importNotes');
+  if(imp){ imp.addEventListener('change', function(e){
+    var file = e.target.files[0]; if(!file) return;
+    var reader = new FileReader();
+    reader.onload = function(ev){
+      try{
+        var data = JSON.parse(ev.target.result);
+        areas.forEach(function(t){
+          var k = t.getAttribute('data-note');
+          if(data[k] !== undefined){ t.value = data[k]; safeSet(PREFIX+k, data[k]); }
+        });
+        flash('Notes imported.');
+      }catch(err){ flash('That file could not be read.'); }
+    };
+    reader.readAsText(file);
+  }); }
+
+  var clr = document.getElementById('clearNotes');
+  if(clr){ clr.addEventListener('click', function(){
+    if(!confirm('Clear all notes on this device? Download a backup first if you want to keep them.')) return;
+    areas.forEach(function(t){ t.value=''; safeRemove(PREFIX+t.getAttribute('data-note')); });
+    flash('All notes cleared.');
+  }); }
+
+  // ---- Theme toggle ----
+  var root = document.documentElement;
+  var saved = safeGet('clarity_theme');
+  if(saved){ root.setAttribute('data-theme', saved); }
+  var tt = document.getElementById('themeToggle');
+  if(tt){ tt.addEventListener('click', function(){
+    var cur = root.getAttribute('data-theme');
+    var next;
+    if(cur === 'dark'){ next = 'light'; }
+    else if(cur === 'light'){ next = 'dark'; }
+    else { // auto -> flip opposite of what the OS is showing
+      var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      next = prefersDark ? 'light' : 'dark';
+    }
+    root.setAttribute('data-theme', next);
+    safeSet('clarity_theme', next);
+  }); }
+
+})();
+</script>
+</body>
+</html>
